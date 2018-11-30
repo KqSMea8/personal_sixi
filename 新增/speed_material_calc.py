@@ -22,15 +22,15 @@ def get_speed_material_tag_static():
             dt = key[0:8]
             tag_id = tag
             tag_str = rw.hget(key, tag)
-            exposure_num = tag_str.split('@')[0]
-            click_num = tag_str.split('@')[1]
-            forward = tag_str.split('@')[2]
-            comment = tag_str.split('@')[3]
-            commend = tag_str.split('@')[4]
-            k_exposure_click = tag_str.split('@')[5]
-            k_exposure_inter = tag_str.split('@')[6]
+            if time.time() < 1543596087:
+                exposure_clac, exposure_num, click_num, forward, comment, commend, k_exposure_click, k_exposure_inter = tag_str.split(
+                    '@')
+            else:
+                exposure_num, click_num, forward, comment, commend, k_exposure_click, k_exposure_inter, exposure_clac = tag_str.split(
+                    '@')
             models.speed_material_tag_static.objects.using('cron_db').create(dt=dt,
                                                                          tag_id=tag_id,
+                                                                         exposure_clac=exposure_clac,
                                                                          exposure_num=exposure_num,
                                                                          click_num=click_num,
                                                                          forward=forward,
@@ -56,15 +56,15 @@ def get_speed_material_recall_static():
             dt = key[0:8]
             recall_id = recall
             recall_str = rw.hget(key, recall)
-            exposure_num = recall_str.split('@')[0]
-            click_num = recall_str.split('@')[1]
-            forward = recall_str.split('@')[2]
-            comment = recall_str.split('@')[3]
-            commend = recall_str.split('@')[4]
-            k_exposure_click = recall_str.split('@')[5]
-            k_exposure_inter = recall_str.split('@')[6]
+            if time.time() < 1543596087:
+                exposure_clac, exposure_num, click_num, forward, comment, commend, k_exposure_click, k_exposure_inter = recall_str.split(
+                    '@')
+            else:
+                exposure_num, click_num, forward, comment, commend, k_exposure_click, k_exposure_inter, exposure_clac = recall_str.split(
+                    '@')
             models.speed_material_recall_static.objects.using('cron_db').create(dt=dt,
                                                                          recall_id=recall_id,
+                                                                         exposure_clac=exposure_clac,
                                                                          exposure_num=exposure_num,
                                                                          click_num=click_num,
                                                                          forward=forward,
@@ -95,18 +95,17 @@ def get_speed_material_newvsold_static():
             tag_str_div =mid_str.split(',')
             for tag_str_list in tag_str_div:
                 is_newuser=tag_str_list.split(':')[0]
-                print(is_newuser)
                 tag_str =tag_str_list.split(':')[1]
-                exposure_num = tag_str.split('@')[0]
-                click_num = tag_str.split('@')[1]
-                forward = tag_str.split('@')[2]
-                comment = tag_str.split('@')[3]
-                commend = tag_str.split('@')[4]
-                k_exposure_click = tag_str.split('@')[5]
-                k_exposure_inter = tag_str.split('@')[6]
+                if time.time() < 1543596087:
+                exposure_clac, exposure_num, click_num, forward, comment, commend, k_exposure_click, k_exposure_inter = tag_str.split(
+                    '@')
+                else:
+                exposure_num, click_num, forward, comment, commend, k_exposure_click, k_exposure_inter, exposure_clac = tag_str.split(
+                    '@')
                 models.speed_material_newvsold_static.objects.using('cron_db').create(dt=dt,
                                                                              tag_id=tag_id,
                                                                              is_newuser=is_newuser,
+                                                                             exposure_clac=exposure_clac,
                                                                              exposure_num=exposure_num,
                                                                              click_num=click_num,
                                                                              forward=forward,
@@ -136,19 +135,18 @@ def get_speed_material_uservsvisitor_static():
             mid_str =mid_str.replace('\'','')
             tag_str_div =mid_str.split(',')
             for tag_str_list in tag_str_div:
-                print(tag_str_list)
                 is_user = tag_str_list.split(':')[0]
                 tag_str = tag_str_list.split(':')[1]
-                exposure_num = tag_str.split('@')[0]
-                click_num = tag_str.split('@')[1]
-                forward = tag_str.split('@')[2]
-                comment = tag_str.split('@')[3]
-                commend = tag_str.split('@')[4]
-                k_exposure_click = tag_str.split('@')[5]
-                k_exposure_inter = tag_str.split('@')[6]
+                if time.time() < 1543596087:
+                exposure_clac, exposure_num, click_num, forward, comment, commend, k_exposure_click, k_exposure_inter = tag_str.split(
+                    '@')
+                else:
+                exposure_num, click_num, forward, comment, commend, k_exposure_click, k_exposure_inter, exposure_clac = tag_str.split(
+                    '@')
                 models.speed_material_uservsvisitor_static.objects.using('cron_db').create(dt=dt,
                                                                              tag_id=tag_id,
                                                                              is_user=is_user,
+                                                                             exposure_clac=exposure_clac,
                                                                              exposure_num=exposure_num,
                                                                              click_num=click_num,
                                                                              forward=forward,

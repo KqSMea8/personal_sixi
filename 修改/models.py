@@ -583,6 +583,7 @@ class team_feed_static(models.Model):
 class speed_material_tag_static(models.Model):
     dt = models.CharField(max_length=50, default='')
     tag_id = models.CharField(max_length=50, default='')
+    exposure_clac = models.CharField(max_length=50, default='') #新增曝光个数
     exposure_num = models.CharField(max_length=50, default='0.0')
     click_num = models.CharField(max_length=50, default='0.0')
     forward = models.CharField(max_length=50, default='0.0')
@@ -590,11 +591,12 @@ class speed_material_tag_static(models.Model):
     commend = models.CharField(max_length=50, default='0.0')
     k_exposure_click = models.CharField(max_length=50, default='0.0')
     k_exposure_inter = models.CharField(max_length=50, default='0.0')
-
+    
 
 class speed_material_recall_static(models.Model):
     dt = models.CharField(max_length=50, default='')
     recall_id = models.CharField(max_length=50, default='')
+    exposure_clac = models.CharField(max_length=50, default='') #新增曝光个数
     exposure_num = models.CharField(max_length=50, default='')
     click_num = models.CharField(max_length=50, default='')
     forward = models.CharField(max_length=50, default='')
@@ -608,6 +610,7 @@ class speed_material_newvsold_static(models.Model):
     dt = models.CharField(max_length=50, default='')
     tag_id = models.CharField(max_length=50, default='')
     is_newuser = models.CharField(max_length=50, default='')
+    exposure_clac = models.CharField(max_length=50, default='')  # 新增曝光个数
     exposure_num = models.CharField(max_length=50, default='')
     click_num = models.CharField(max_length=50, default='')
     forward = models.CharField(max_length=50, default='')
@@ -621,6 +624,7 @@ class speed_material_uservsvisitor_static(models.Model):
     dt = models.CharField(max_length=50, default='')
     tag_id = models.CharField(max_length=50, default='')
     is_user = models.CharField(max_length=50, default='')
+    exposure_clac = models.CharField(max_length=50, default='')  # 新增曝光个数
     exposure_num = models.CharField(max_length=50, default='')
     click_num = models.CharField(max_length=50, default='')
     forward = models.CharField(max_length=50, default='')

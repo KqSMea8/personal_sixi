@@ -26,6 +26,7 @@
                                     <thead>
                                     <tr>
                                         <th nowrap="nowrap">标签</th>
+                                        <th nowrap="nowrap">曝光个数</th>
                                         <th nowrap="nowrap">曝光量</th>
                                         <th nowrap="nowrap">点击量</th>
                                         <th nowrap="nowrap">转</th>
@@ -86,6 +87,7 @@
                                 type: 'get',
                                 success: function (res) {
                                     var tag_id = JSON.parse(res.tag_id);
+                                    var exposure_clac = JSON.parse(res.exposure_clac);
                                     var exposure_num = JSON.parse(res.exposure_num);
                                     var click_num = JSON.parse(res.click_num);
                                     var forwards = JSON.parse(res.forwards);
@@ -97,6 +99,7 @@
                                     for (var i = 0; i < tag_id.length; i++) {
                                         var tr = document.createElement('tr');
                                         var tag_id_td = document.createElement('td');
+                                        var exposure_clac_td = document.createElement('td');
                                         var exposure_num_td = document.createElement('td');
                                         var click_num_td = document.createElement('td');
                                         var forwards_td = document.createElement('td');
@@ -107,6 +110,7 @@
 
 
                                         tag_id_td.innerHTML = tag_id[i];
+                                        exposure_clac_td.innerHTML =exposure_clac[i];
                                         exposure_num_td.innerHTML = exposure_num[i];
                                         click_num_td.innerHTML = click_num[i];
                                         forwards_td.innerHTML = forwards[i];
@@ -116,6 +120,7 @@
                                         k_exposure_inter_td.innerHTML = k_exposure_inter[i];
 
                                         tr.appendChild(tag_id_td);
+                                        tr.appendChild(exposure_clac_td)
                                         tr.appendChild(exposure_num_td);
                                         tr.appendChild(click_num_td);
                                         tr.appendChild(forwards_td);
@@ -161,6 +166,7 @@
                                     <thead>
                                     <tr>
                                         <th nowrap="nowrap">召回</th>
+                                        <th nowrap="nowrap">曝光个数</th>
                                         <th nowrap="nowrap">曝光量</th>
                                         <th nowrap="nowrap">点击量</th>
                                         <th nowrap="nowrap">转</th>
@@ -221,6 +227,7 @@
                                 type: 'get',
                                 success: function (res) {
                                     var recall_id = JSON.parse(res.recall_id);
+                                    var exposure_clac =JSON.parse(res.exposure_clac);
                                     var exposure_num = JSON.parse(res.exposure_num);
                                     var click_num = JSON.parse(res.click_num);
                                     var forwards = JSON.parse(res.forwards);
@@ -232,6 +239,7 @@
                                     for (var i = 0; i < recall_id.length; i++) {
                                         var tr = document.createElement('tr');
                                         var recall_id_td = document.createElement('td');
+                                        var exposure_clac_td =document.createElement('td');
                                         var exposure_num_td = document.createElement('td');
                                         var click_num_td = document.createElement('td');
                                         var forwards_td = document.createElement('td');
@@ -242,6 +250,7 @@
 
 
                                         recall_id_td.innerHTML = recall_id[i];
+                                        exposure_clac_td.innerHTML =exposure_clac[i];
                                         exposure_num_td.innerHTML = exposure_num[i];
                                         click_num_td.innerHTML = click_num[i];
                                         forwards_td.innerHTML = forwards[i];
@@ -251,6 +260,7 @@
                                         k_exposure_inter_td.innerHTML = k_exposure_inter[i];
 
                                         tr.appendChild(recall_id_td);
+                                        tr.appendChild(exposure_clac_td);
                                         tr.appendChild(exposure_num_td);
                                         tr.appendChild(click_num_td);
                                         tr.appendChild(forwards_td);
