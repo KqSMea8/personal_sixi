@@ -43,7 +43,7 @@ def show_speed_material_tag_static(request):
         commend = []
         k_exposure_click = []
         k_exposure_inter = []
-        tag_list = models.speed_material_tag_static.objects.using('cron_db').filter(dt=dt).order_by('-exposure_num')
+        tag_list = models.speed_material_tag_static.objects.using('cron_db').filter(dt=dt)
         for tag in tag_list:
             tag_id.append(tag.tag_id)
             exposure_num.append(tag.exposure_num)
