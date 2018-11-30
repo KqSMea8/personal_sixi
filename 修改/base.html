@@ -1,0 +1,494 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>push物料监控</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'materiel/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'materiel/vendor/bootstrapValidator/css/bootstrapValidator.min.css' %}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{% static 'materiel/vendor/metisMenu/metisMenu.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'materiel/dist/css/sb-admin-2.css' %}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{% static 'materiel/vendor/morrisjs/morris.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'materiel/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript"
+            src="{% static 'materiel/js/echarts.common.min.js' %}"></script>
+    <!-- 引入 vintage 主题 -->
+    <script src="{% static 'materiel/js/macarons.js' %}"></script>
+    <!-- jQuery -->
+    <script src="{% static 'materiel/vendor/jquery/jquery.min.js' %}"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">push物料监控</a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="/modify_passwd"><i class="fa fa-gear fa-fw"></i>修改密码</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-bar-chart-o fa-fw"></i>主版物料情况统计<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/contribute_static">审核前物料统计</a>
+                            </li>
+                            <li>
+                                <a href="/materiel_static">审核后物料统计</a>
+                            </li>
+                            <li>
+                                <a href="/recall_static">兴趣实时召回</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-rocket fa-fw"></i>极速版物料情况统计<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/speed_materiel_static">极速版物料分布</a>
+                            </li>
+                            <li>
+                                <a href="/speed_materiel_change">极速版物料变化统计</a>
+                            </li>
+
+                            <li>
+                                <a href="/speed_materiel_calc">极速版物料统计</a>
+                            </li>
+
+                            <li>
+                                <a href="/speed_materiel_calc1">新老用户统计</a>
+                            </li>
+
+                             <li>
+                                <a href="/speed_materiel_calc2">访客统计</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-table fa-fw"></i>排行榜<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/rank_static">总排行榜</a>
+                            </li>
+                            <li>
+                                <a href="/hot_material_static">热门流push物料排行榜</a>
+                            </li>
+                            <li>
+                                <a href="/rank_active_static">活跃用户排行榜</a>
+                            </li>
+                            <li>
+                                <a href="/rank_category_static">分类点击率排行榜</a>
+                            </li>
+                            <li>
+                                <a href="/rank_relation_static">关系点击率排行榜</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-weibo fa-fw"></i>业务监控<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/team_push_monitor">Push</a>
+                            </li>
+                            <li>
+                                <a href="/team_speed_rec_feed_monitor">极速版推荐流</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-edit fa-fw"></i>物料管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/remove_blog_interest">兴趣物料下线</a>
+                            </li>
+                            <li>
+                                <a href="/remove_blog_relation">关系物料下线</a>
+                            </li>
+                            <li>
+                                <a href="/add_black_user">用户黑名单添加</a>
+                            </li>
+                            <li>
+                                <a href="/add_black_relation">关系黑名单添加</a>
+                            </li>
+                            <li>
+                                <a href="/add_black_keyword">关键词黑名单添加</a>
+                            </li>
+                            <li>
+                                <a href="/interest_add_black">兴趣黑名单添加</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-users fa-fw"></i>uid管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/potential_info"><i class="fa fa-user fa-fw"></i>相似UID查询</a>
+                            </li>
+                            <li>
+                                <a href="/speed_recommend_local"><i class="fa fa-user fa-fw"></i>极速版uid查询</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-calendar fa-fw"></i>兴趣协同推荐<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/collaborative_user_static">用户协同统计</a>
+                            </li>
+                            <li>
+                                <a href="/collaborative_monitor_static">物料协同统计</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/push_accept_total"><i class="fa fa-chain fa-fw"></i>可push用户统计</a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-user fa-fw"></i>关系构建线上<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/f_user_audit">博主审核</a>
+                            </li>
+                            <li>
+                                <a href="/f_user_audit_result">博主审核结果</a>
+                            </li>
+                            <li>
+                                <a href="/add_f_user_audit">博主添加</a>
+                            </li>
+                            <li>
+                                <a href="/mbloger_be_interested">注册流程可能感兴趣的人</a>
+                            </li>
+                            <li>
+                                <a href="/personalise_mbloger_be_interested">注册流程可能感兴趣的人推荐</a>
+                            </li>
+                            <li>
+                                <a href="/tag_recommend_score">注册流程博主推荐V1</a>
+                            </li>
+                            <li>
+                                <a href="/tag_recommend_score_v2">注册流程博主推荐V2</a>
+                            </li>
+                            <li>
+                                <a href="/tag_recommend_score_v3">注册流程博主推荐V3</a>
+                            </li>
+                            <li>
+                                <a href="/tag_recommend_score_v4">注册流程博主推荐V4</a>
+                            </li>
+                            <li>
+                                <a href="/mbloger_stratgy_push_recomment">关系中心推荐流</a>
+                            </li>
+                            <li>
+                                <a href="/stars_recommend">关系中心明星流</a>
+                            </li>
+                            <li>
+                                <a href="/strategy_recommend">关系中心卡片推荐统计</a>
+                            </li>
+                            <li>
+                                <a href="/relation_interest_category_static">新户兴趣标签博主统计</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-user fa-fw"></i>关系构建实验<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/mbloger_collaborative_recommend">关注博主协同推荐</a>
+                            </li>
+                            <li>
+                                <a href="/mbloger_tag_recommend">关注博主标签相似推荐</a>
+                            </li>
+                            <li>
+                                <a href="/obj_match_recommend">三级标签匹配博主推荐</a>
+                            </li>
+                            <li>
+                                <a href="/tag_match_recommend">二级标签匹配博主推荐</a>
+                            </li>
+                            <li>
+                                <a href="/inte2ability_match_recommend">兴趣-能力向量博主推荐</a>
+                            </li>
+                            <li>
+                                <a href="/similar_mbloger_embedding_recommend">关注博主embedding相似推荐</a>
+                            </li>
+                            <li>
+                                <a href="/similar_mbloger_embedding_info">embedding相似博主UID查询</a>
+                            </li>
+                            <li>
+                                <a href="/common_friends">共同好友推荐</a>
+                            </li>
+                            <li>
+                                <a href="/cold_boot_recommend">冷启动推荐</a>
+                            </li>
+                            <li>
+                                <a href="/push_click_rank">Push点击率排行榜</a>
+                            </li>
+                            <li>
+                                <a href="/rank_ability_static">能力博主审核</a>
+                            </li>
+                            <li>
+                                <a href="/gold_v_user_audit">金v博主审核</a>
+                            </li>
+                            <li>
+                                <a href="/gold_v_user_tag_audit">博主二级标签审核</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-arrows fa-fw"></i>特征情况统计<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/user_feature_static">用户特征统计</a>
+                            </li>
+                            <li>
+                                <a href="/material_feature_static">物料特征统计</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/push_strategy_static"><i class="fa fa-tasks fa-fw"></i>下发条数调整统计</a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-send fa-fw"></i>即时热点推送<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/push_click_tag_static">每日分领域数据</a>
+                            </li>
+                            <li>
+                                <a href="/interest_timely_push_real_data">实时分领域数据</a>
+                            </li>
+                            <li>
+                                <a href="/interest_timely_push_item_data">实时物料分布</a>
+                            </li>
+                            <li>
+                                <a href="/interest_timely_push_each_data">实时单条数据</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="/relation_push_static"><i class="fa fa-safari fa-fw"></i>关系push下发条数统计</a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-phone fa-fw"></i>手机分类统计<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/mobile_click_static">手机分类与点击</a>
+                            </li>
+                            <li>
+                                <a href="/mobile_user_portrait_static">手机分类与用户画像</a>
+                            </li>
+                            <li>
+                                <a href="/day_mobile_click_static">每日手机分类与点击统计</a>
+                            </li>
+                            <li>
+                                <a href="/mobile_weibo_version_static">手机版本下发统计</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/total_push_click_static"><i class="fa fa-area-chart fa-fw"></i>全量热点Push点击情况</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        {% block dashboard %}
+        {% endblock dashboard %}
+
+        {% block contribute_static %}
+        {% endblock contribute_static %}
+
+        {% block materiel_static %}
+        {% endblock materiel_static %}
+
+        {% block recall_static %}
+        {% endblock recall_static %}
+
+        {% block rank_static %}
+        {% endblock rank_static %}
+
+        {% block rank_active_static %}
+        {% endblock rank_active_static %}
+
+        {% block rank_category_static %}
+        {% endblock rank_category_static %}
+
+        {% block rank_relation_static %}
+        {% endblock rank_relation_static %}
+
+        {% block remove_blog_interest %}
+        {% endblock remove_blog_interest %}
+
+        {% block remove_blog_relation %}
+        {% endblock remove_blog_relation %}
+
+        {% block remove_blog_result %}
+        {% endblock remove_blog_result %}
+
+        {% block add_black_user %}
+        {% endblock add_black_user %}
+
+        {% block add_black_relation %}
+        {% endblock add_black_relation %}
+
+        {% block add_black_keyword %}
+        {% endblock add_black_keyword %}
+
+        {% block modify_passwd %}
+        {% endblock modify_passwd %}
+
+        {% block no_perms %}
+        {% endblock no_perms %}
+
+        {% block potential_info %}
+        {% endblock potential_info %}
+
+        {% block collaborative_user_static %}
+        {% endblock collaborative_user_static %}
+
+        {% block collaborative_monitor_static %}
+        {% endblock collaborative_monitor_static %}
+
+        {% block push_accept_total %}
+        {% endblock push_accept_total %}
+
+        {% block user_feature_static %}
+        {% endblock user_feature_static %}
+
+        {% block material_feature_static %}
+        {% endblock material_feature_static %}
+
+        {% block myblock %}
+        {% endblock myblock %}
+
+        {% block add_f_user_audit %}
+        {% endblock add_f_user_audit %}
+
+        {% block push_strategy_static %}
+        {% endblock push_strategy_static %}
+
+        {% block push_click_tag_static %}
+        {% endblock push_click_tag_static %}
+
+        {% block rank_ability %}
+        {% endblock rank_ability %}
+
+        {% block mobile_click %}
+        {% endblock mobile_click %}
+
+        {% block strategy_recommmend %}
+        {% endblock strategy_recommmend %}
+
+        {% block relation_interest_category_static %}
+        {% endblock relation_interest_category_static %}
+
+        {% block speed_materiel_static %}
+        {% endblock speed_materiel_static %}
+
+        {% block speed_materiel_change %}
+        {% endblock speed_materiel_change %}
+
+        {% block speed_materiel_calc_static %}
+        {% endblock speed_materiel_calc_static %}
+
+        {% block speed_materiel_calc1_static %}
+        {% endblock speed_materiel_calc1_static %}
+
+        {% block speed_materiel_calc2_static %}
+        {% endblock speed_materiel_calc2_static %}
+
+        {% block personalise_mbloger_be_interested %}
+        {% endblock personalise_mbloger_be_interested %}
+
+        {% block day_mobile_click %}
+        {% endblock day_mobile_click %}
+
+        {% block mobile_weibo_version %}
+        {% endblock mobile_weibo_version %}
+
+        {% block hot_material_static %}
+        {% endblock hot_material_static %}
+
+        {% block total_push_click_static %}
+        {% endblock total_push_click_static %}
+
+        {% block speed_recommend_local %}
+        {% endblock speed_recommend_local %}
+    </div>
+
+</div>
+
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'materiel/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'materiel/vendor/bootstrapValidator/js/bootstrapValidator.min.js' %}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="{% static 'materiel/vendor/metisMenu/metisMenu.min.js' %}"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="{% static 'materiel/vendor/raphael/raphael.min.js' %}"></script>
+<script src="{% static 'materiel/vendor/morrisjs/morris.min.js' %}"></script>
+<script src="{% static 'materiel/data/morris-data.js' %}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{% static 'materiel/dist/js/sb-admin-2.js' %}"></script>
+
+<script src="{% static 'materiel/js/datatables.min.js' %}"></script>
+
+
+</body>
+
+</html>
