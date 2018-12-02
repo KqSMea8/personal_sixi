@@ -7,6 +7,7 @@ import datetime
 from dataCalculate import redis_rw2
 from MaterielMonitor import models
 
+#hhhh
 logger = logging.getLogger('django')
 
 
@@ -137,7 +138,7 @@ def get_speed_material_uservsvisitor_static():
             for tag_str_list in tag_str_div:
                 is_user = tag_str_list.split(':')[0]
                 tag_str = tag_str_list.split(':')[1]
-                if time.time() < 1543596087:
+                if time.time() < 1543596087: 1543636856
                 exposure_clac, exposure_num, click_num, forward, comment, commend, k_exposure_click, k_exposure_inter = tag_str.split(
                     '@')
                 else:
